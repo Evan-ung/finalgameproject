@@ -36,4 +36,4 @@ mouseClicked = function() {
         println("You made the right choice!");
     }
 };
-hello
+he
