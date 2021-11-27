@@ -1,7 +1,7 @@
 var currentScene = 0; // 0 = splash, 1 = freemode, 2 = coloring book select, 3-... = coloring book options
 var coloringState = 0;
 var currentColor = color(255,255,255);
-var ellipseSize = 10;
+var ellipseSize = 5;
 
 //Evan's Bitmoji
 var drawBitmojiHead = function(bitmojiX, bitmojiY, bitmojiHeight){
@@ -65,7 +65,7 @@ var drawBitmojiHead = function(bitmojiX, bitmojiY, bitmojiHeight){
             ellipse(bitmojiX-(bitmojiHeight/100*16), bitmojiY+(bitmojiHeight/100*4), (bitmojiHeight/100*10), (bitmojiHeight/100*11));
     };
         
-    var drawBitmojiBody = function(bitmojiX, bitmojiY, bitmojiHeight)
+var drawBitmojiBody = function(bitmojiX, bitmojiY, bitmojiHeight)
     {
         //shirt
             fill(0, 11, 135);
@@ -152,51 +152,6 @@ var drawBitmojiDamien = function(bmX,bmY,bmH){
     bitmojiBody(bmX,bmY,bmH);
 };
 
-
-var Button = function(config) {
-    this.x = config.x || 0;
-    this.y = config.y || 0;
-    this.width = config.width || 150;
-    this.height = config.height || 50;
-    this.label = config.label || "Click";
-    this.color1 = config.color1 || 0;
-    this.color2 = config.color2 || 0;
-    this.color3 = config.color3 || 0;
-};
-
-Button.prototype.draw = function() {
-    fill(this.color1,this.color2,this.color3);
-    rect(this.x, this.y, this.width, this.height, 5);
-    fill(0, 0, 0);
-    textSize(19);
-    textAlign(LEFT, TOP);
-    text(this.label, this.x+this.width/5, this.y+this.height/4);
-};
-
-Button.prototype.isMouseInside = function() {
-    return mouseX > this.x &&
-           mouseX < (this.x + this.width) &&
-           mouseY > this.y &&
-           mouseY < (this.y + this.height);
-};
-
-
-var freeDrawButton = new Button({
-    x: 133,
-    y: 300,
-    width:150,
-    height:50,
-    color1:255,
-    color2:0,
-    color3:0,
-    label: "Free Draw"
-});
-mouseClicked = function() {
-    if (freeDrawButton.isMouseInside()) {
-        currentScene = 1;
-    }
-};
-
 var Button = function(config) {
     this.x = config.x || 0;
     this.y = config.y || 0;
@@ -226,23 +181,63 @@ Button.prototype.isMouseInside = function() {
 
 
 var freeDrawButton = new Button({
-    x: 131,
-    y: 307,
+    x: 133,
+    y: 300,
     width:150,
     height:50,
     color1:255,
     color2:0,
     color3:0,
-    text1:0,
-    text2:0,
-    text3:0,
-    textSize:19,
-    label: "    Free Draw"
+    label: "Free Draw"
+});
+
+var thickness3Button = new Button({
+    x: 375,
+    y: 30,
+    width:60,
+    height:20,
+    color1:255,
+    color2:255,
+    color3:255,
+    label: " "
+});
+
+var thickness6Button = new Button({
+    x: 375,
+    y: 55,
+    width:60,
+    height:20,
+    color1:255,
+    color2:255,
+    color3:255,
+    label: " "
+});
+
+var thickness9Button = new Button({
+    x: 375,
+    y: 80,
+    width:60,
+    height:20,
+    color1:255,
+    color2:255,
+    color3:255,
+    label: " "
+});
+
+var thickness15Button = new Button({
+    x: 375,
+    y: 105,
+    width:60,
+    height:20,
+    color1:255,
+    color2:255,
+    color3:255,
+    label: " "
 });
 
 var blueButton = new Button({
     x: 375,
-    y: 50,
+    y: 130,
     width:60,
     height:20,
     color1:0,
@@ -253,7 +248,7 @@ var blueButton = new Button({
 
 var lightBlueButton = new Button({
     x: 375,
-    y: 75,
+    y: 155,
     width:60,
     height:20,
     color1:0,
@@ -264,7 +259,7 @@ var lightBlueButton = new Button({
 
 var redButton = new Button({
     x: 375,
-    y: 100,
+    y: 180,
     width:60,
     height:20,
     color1:255,
@@ -275,7 +270,7 @@ var redButton = new Button({
 
 var pinkButton = new Button({
     x: 375,
-    y: 125,
+    y: 205,
     width:60,
     height:20,
     color1:255,
@@ -286,7 +281,7 @@ var pinkButton = new Button({
     
 var yellowButton = new Button({
     x: 375,
-    y: 150,
+    y: 230,
     width:60,
     height:20,
     color1:255,
@@ -297,7 +292,7 @@ var yellowButton = new Button({
 
 var orangeButton = new Button({
     x: 375,
-    y: 175,
+    y: 255,
     width:60,
     height:20,
     color1:255,
@@ -308,7 +303,7 @@ var orangeButton = new Button({
 
 var darkGreenButton = new Button({
     x: 375,
-    y: 200,
+    y: 280,
     width:60,
     height:20,
     color1:0,
@@ -319,7 +314,7 @@ var darkGreenButton = new Button({
 
 var lightGreenButton = new Button({
     x: 375,
-    y: 225,
+    y: 305,
     width:60,
     height:20,
     color1:0,
@@ -330,7 +325,7 @@ var lightGreenButton = new Button({
 
 var purpleButton = new Button({
     x: 375,
-    y: 250,
+    y: 330,
     width:60,
     height:20,
     color1:238,
@@ -341,7 +336,7 @@ var purpleButton = new Button({
 
 var brownButton = new Button ({
     x: 375,
-    y: 275,
+    y: 355,
     width:60,
     height:20,
     color1:139,
@@ -352,13 +347,47 @@ var brownButton = new Button ({
 
 var blackButton = new Button({
     x: 375,
-    y: 300,
+    y: 380,
     width:60,
     height:20,
     color1:0,
     color2:0,
     color3:0,
     label: " "
+});
+
+var eraseButton = new Button({
+    x: 70,
+    y: 0,
+    width:90,
+    height:29,
+    color1:255,
+    color2:182,
+    color3:193,
+    label: "  Erase"
+});
+
+var clearButton = new Button ({
+    x: 160,
+    y: 0,
+    width:90,
+    height:29,
+    color1:255,
+    color2:182,
+    color3:193,
+    label: "  Clear"
+});
+
+var finishButton = new Button ({
+    x: 250,
+    y: 0,
+    width:90,
+    height:29,
+    color1:255,
+    color2:215,
+    color3:0,
+    label: "  Finish"
+    
 });
 
 mouseClicked = function() {
@@ -398,7 +427,52 @@ mouseClicked = function() {
     if(blackButton.isMouseInside() && (currentScene === 1 || currentScene === 3 || currentScene === 4 || currentScene === 5 || currentScene === 6) && coloringState === 1){
         currentColor = color(0,0,0);
     }
+    if(thickness3Button.isMouseInside() && (currentScene === 1 || currentScene === 3 || currentScene === 4 || currentScene === 5 || currentScene === 6) && coloringState === 1){
+        ellipseSize = 3;
+    }
+    if(thickness6Button.isMouseInside() && (currentScene === 1 || currentScene === 3 || currentScene === 4 || currentScene === 5 || currentScene === 6) && coloringState === 1){
+        ellipseSize = 6;
+    }
+    if(thickness9Button.isMouseInside() && (currentScene === 1 || currentScene === 3 || currentScene === 4 || currentScene === 5 || currentScene === 6) && coloringState === 1){
+        ellipseSize = 9;
+    }
+    if(thickness15Button.isMouseInside() && (currentScene === 1 || currentScene === 3 || currentScene === 4 || currentScene === 5 || currentScene === 6) && coloringState === 1){
+        ellipseSize = 15;
+    }
+    if(eraseButton.isMouseInside() && (currentScene === 1 || currentScene === 3 || currentScene === 4 || currentScene === 5 || currentScene === 6) && coloringState === 1){
+        currentColor = color(255,255,255);
+    }
+    if(clearButton.isMouseInside() && (currentScene === 1 || currentScene === 3 || currentScene === 4 || currentScene === 5 || currentScene === 6) && coloringState === 1){
+        currentScene = 1;
+        coloringState = 0;
+    }
 
+};
+
+var allColoringButtons = function (){
+    thickness3Button.draw();
+    thickness6Button.draw();
+    thickness9Button.draw();
+    thickness15Button.draw();
+    blueButton.draw();
+    lightBlueButton.draw();
+    redButton.draw();
+    pinkButton.draw();
+    yellowButton.draw();
+    orangeButton.draw();
+    darkGreenButton.draw();
+    lightGreenButton.draw();
+    purpleButton.draw();
+    brownButton.draw();
+    blackButton.draw();
+    eraseButton.draw();
+    clearButton.draw();
+    finishButton.draw();
+    fill(0,0,0);
+    ellipse(390,40,3,3);
+    ellipse(390,65,6,6);
+    ellipse(390,90,9,9);
+    ellipse(390,115,15,15);
 };
 
 var splashScreen = function(){
@@ -455,24 +529,19 @@ var splashScreen = function(){
         drawBitmojiDamien(367, 257, 81);
         drawBitmojiEvan(60, 346, 48);
     //button
+    strokeWeight(1);
+    stroke(0,0,0);
     freeDrawButton.draw();
 };
 
-
 var freeModeScreen = function(){
     background(255,255,255);
-    blueButton.draw();
-    lightBlueButton.draw();
-    redButton.draw();
-    pinkButton.draw();
-    yellowButton.draw();
-    orangeButton.draw();
-    darkGreenButton.draw();
-    lightGreenButton.draw();
-    purpleButton.draw();
-    brownButton.draw();
-    blackButton.draw();
+    stroke(0,0,0);
+    allColoringButtons();
+    fill(255,255,255);
+    rect(0,30,375,369);
 };
+
 draw = function() {
     if(currentScene === 0){
         splashScreen();
@@ -481,7 +550,7 @@ draw = function() {
         coloringState = 1;
         freeModeScreen();
     }
-    if (mouseIsPressed && coloringState === 1 && (currentScene === 1 || currentScene === 3 || currentScene === 4 || currentScene === 5 || currentScene === 6)){
+    if (mouseIsPressed && coloringState === 1 && mouseX < 375 && mouseX > 0 && mouseY < 400 && mouseY > 34 && (currentScene === 1 || currentScene === 3 || currentScene === 4 || currentScene === 5 || currentScene === 6)){
         noStroke();
         fill(currentColor);
         ellipse(mouseX,mouseY,ellipseSize,ellipseSize);
