@@ -1,7 +1,7 @@
 var currentScene = 0; // 0 = splash, 1 = freemode, 2 = coloring book select, 3-... = coloring book options
-var coloringState = 0;
-var currentColor = color(255,255,255);
-var ellipseSize = 0;
+var coloringState = 0; //0 coloring does not work, 1 coloring does work
+var currentColor = color(255,255,255); //current color of the ellipses
+var ellipseSize = 0; //current size of the ellipses
 
 //Evan's Bitmoji
 var drawBitmojiHead = function(bitmojiX, bitmojiY, bitmojiHeight){
@@ -152,6 +152,7 @@ var drawBitmojiDamien = function(bmX,bmY,bmH){
     bitmojiBody(bmX,bmY,bmH);
 };
 
+//khan button class with modifications for button color
 var Button = function(config) {
     this.x = config.x || 0;
     this.y = config.y || 0;
@@ -434,6 +435,7 @@ var finishButton = new Button ({
     
 });
 
+//constructor for ellipses that are being drawn
 var Ellipse = function(x,y,color,size){
     this.x = x;
     this.y = y;
@@ -447,6 +449,7 @@ Ellipse.prototype.draw = function() {
     ellipse(this.x,this.y,this.size,this.size);
 };
 
+//stores ellipses that the user draws on the freemode page
 var freeModeDrawing = [];
 
 mouseClicked = function() {
@@ -622,25 +625,31 @@ var coloringBookSelect = function(){
 
 
 draw = function() {
+    //draws the initial splash screen/home screen
     if(currentScene === 0){
         splashScreen();
         coloringState = 0;
     }
+    //draws the coloring book select screen
     if(currentScene === 2){
         coloringBookSelect();
         coloringState = 0;
     }
+    //creates the freemode screen
     if(currentScene === 1 && coloringState === 0){
         coloringState = 1;
         freeModeScreen();
+        //draws anything the user did not delete previously in the freemode section
         for(var i = 0; i < freeModeDrawing.length; ++i){
             freeModeDrawing[i].draw();
         }
     }
+    //draws/erases in the drawing box 
     if (mouseIsPressed && coloringState === 1 && currentScene === 1 && mouseX < 375 && mouseX > 0 && mouseY < 400 && mouseY > 34){
         noStroke();
         fill(currentColor);
         ellipse(mouseX,mouseY,ellipseSize,ellipseSize);
+        //pushes in every ellipse drawn into the freeMode save array  
         for(var i = 0; i < 1; i++){
             freeModeDrawing.push(new Ellipse(mouseX,mouseY,currentColor,ellipseSize));
             
