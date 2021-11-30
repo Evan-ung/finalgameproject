@@ -179,16 +179,49 @@ Button.prototype.isMouseInside = function() {
            mouseY < (this.y + this.height);
 };
 
-
+//button variables
 var freeDrawButton = new Button({
     x: 133,
     y: 300,
     width:150,
     height:50,
     color1:255,
+    color2:134,
+    color3:0,
+    label: "    Free Draw"
+});
+
+var coloringMode = new Button({
+    x: 133,
+    y: 239,
+    width:150,
+    height:50,
+    color1:255,
     color2:0,
     color3:0,
-    label: "Free Draw"
+    label: "Coloring Pages"
+});
+
+var nextDrawing = new Button({
+    x: 350,
+    y: 177,
+    width:30,
+    height:50,
+    color1:255,
+    color2:0,
+    color3:0,
+    label: ">"
+});
+
+var confirmDrawingButton = new Button({
+    x: 161,
+    y: 318,
+    width:90,
+    height:50,
+    color1:255,
+    color2:0,
+    color3:0,
+    label: "Confirm"
 });
 
 var thickness3Button = new Button({
@@ -394,6 +427,9 @@ mouseClicked = function() {
     if (freeDrawButton.isMouseInside() && currentScene === 0) {
         currentScene = 1;
     }
+    if (coloringMode.isMouseInside() && currentScene === 0) {
+        currentScene = 2;
+    }
     if(blueButton.isMouseInside() && (currentScene === 1 || currentScene === 3 || currentScene === 4 || currentScene === 5 || currentScene === 6) && coloringState === 1){
         currentColor = color(0,0,255);
     }
@@ -532,6 +568,7 @@ var splashScreen = function(){
     strokeWeight(1);
     stroke(0,0,0);
     freeDrawButton.draw();
+    coloringMode.draw();
 };
 
 var freeModeScreen = function(){
@@ -542,9 +579,21 @@ var freeModeScreen = function(){
     rect(0,30,375,369);
 };
 
+var coloringBookSelect = function(){
+    background(255, 255, 255);
+    textSize(21);
+    text("Select what you would like to draw! ", 43, 16);
+    nextDrawing.draw();
+    confirmDrawingButton.draw();
+    
+};
+
 draw = function() {
     if(currentScene === 0){
         splashScreen();
+    }
+    if(currentScene === 2){
+        coloringBookSelect();
     }
     if(currentScene === 1 && coloringState === 0){
         coloringState = 1;
