@@ -389,8 +389,19 @@ var blackButton = new Button({
     label: " "
 });
 
+var homeButton = new Button({
+    x: 0,
+    y: 0,
+    width:90,
+    height:29,
+    color1:255,
+    color2:215,
+    color3:0,
+    label: "  Home"
+});
+
 var eraseButton = new Button({
-    x: 70,
+    x: 90,
     y: 0,
     width:90,
     height:29,
@@ -401,7 +412,7 @@ var eraseButton = new Button({
 });
 
 var clearButton = new Button ({
-    x: 160,
+    x: 180,
     y: 0,
     width:90,
     height:29,
@@ -412,7 +423,7 @@ var clearButton = new Button ({
 });
 
 var finishButton = new Button ({
-    x: 250,
+    x: 270,
     y: 0,
     width:90,
     height:29,
@@ -482,6 +493,10 @@ mouseClicked = function() {
         currentScene = 1;
         coloringState = 0;
     }
+    if (homeButton.isMouseInside() && (currentScene === 1 || currentScene === 3 || currentScene === 4 || currentScene === 5 || currentScene === 6) && coloringState === 1){
+        coloringState = 0;
+        currentScene = 0;
+    }
 
 };
 
@@ -504,6 +519,7 @@ var allColoringButtons = function (){
     eraseButton.draw();
     clearButton.draw();
     finishButton.draw();
+    homeButton.draw();
     fill(0,0,0);
     ellipse(390,40,3,3);
     ellipse(390,65,6,6);
@@ -588,6 +604,21 @@ var coloringBookSelect = function(){
     
 };
 
+var Ellipse = function(x,y,color,size){
+    this.x = x;
+    this.y = y;
+    this.color = color;
+    this.size = size;
+};
+
+Ellipse.prototype.draw = function() {
+    noStroke();
+    fill(this.color);
+    ellipse(this.x,this.y,this.size,this.size);
+};
+
+var freeModeEllipse = [];
+
 draw = function() {
     if(currentScene === 0){
         splashScreen();
@@ -598,10 +629,17 @@ draw = function() {
     if(currentScene === 1 && coloringState === 0){
         coloringState = 1;
         freeModeScreen();
+        for(var i = 0; i < freeModeEllipse.length; ++i){
+            freeModeEllipse[i].draw();
+        }
     }
     if (mouseIsPressed && coloringState === 1 && mouseX < 375 && mouseX > 0 && mouseY < 400 && mouseY > 34 && (currentScene === 1 || currentScene === 3 || currentScene === 4 || currentScene === 5 || currentScene === 6)){
         noStroke();
         fill(currentColor);
         ellipse(mouseX,mouseY,ellipseSize,ellipseSize);
+        for(var i = 0; i < 1; i++){
+            freeModeEllipse.push(new Ellipse(mouseX,mouseY,currentColor,ellipseSize));
+            
+        }
     }
 };
