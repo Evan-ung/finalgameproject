@@ -1,7 +1,7 @@
 var currentScene = 0; // 0 = splash, 1 = freemode, 2 = coloring book select, 3-... = coloring book options
 var coloringState = 0;
 var currentColor = color(255,255,255);
-var ellipseSize = 5;
+var ellipseSize = 0;
 
 //Evan's Bitmoji
 var drawBitmojiHead = function(bitmojiX, bitmojiY, bitmojiHeight){
@@ -434,6 +434,21 @@ var finishButton = new Button ({
     
 });
 
+var Ellipse = function(x,y,color,size){
+    this.x = x;
+    this.y = y;
+    this.color = color;
+    this.size = size;
+};
+
+Ellipse.prototype.draw = function() {
+    noStroke();
+    fill(this.color);
+    ellipse(this.x,this.y,this.size,this.size);
+};
+
+var freeModeDrawing = [];
+
 mouseClicked = function() {
     if (freeDrawButton.isMouseInside() && currentScene === 0) {
         currentScene = 1;
@@ -489,12 +504,13 @@ mouseClicked = function() {
     if(eraseButton.isMouseInside() && (currentScene === 1 || currentScene === 3 || currentScene === 4 || currentScene === 5 || currentScene === 6) && coloringState === 1){
         currentColor = color(255,255,255);
     }
-    if(clearButton.isMouseInside() && (currentScene === 1 || currentScene === 3 || currentScene === 4 || currentScene === 5 || currentScene === 6) && coloringState === 1){
+    if(clearButton.isMouseInside() && currentScene === 1 && coloringState === 1){
         currentScene = 1;
         coloringState = 0;
+        freeModeDrawing.splice(0,freeModeDrawing.length);
     }
     if (homeButton.isMouseInside() && (currentScene === 1 || currentScene === 3 || currentScene === 4 || currentScene === 5 || currentScene === 6) && coloringState === 1){
-        coloringState = 0;
+        ellipseSize = 0;
         currentScene = 0;
     }
 
@@ -604,41 +620,29 @@ var coloringBookSelect = function(){
     
 };
 
-var Ellipse = function(x,y,color,size){
-    this.x = x;
-    this.y = y;
-    this.color = color;
-    this.size = size;
-};
-
-Ellipse.prototype.draw = function() {
-    noStroke();
-    fill(this.color);
-    ellipse(this.x,this.y,this.size,this.size);
-};
-
-var freeModeEllipse = [];
 
 draw = function() {
     if(currentScene === 0){
         splashScreen();
+        coloringState = 0;
     }
     if(currentScene === 2){
         coloringBookSelect();
+        coloringState = 0;
     }
     if(currentScene === 1 && coloringState === 0){
         coloringState = 1;
         freeModeScreen();
-        for(var i = 0; i < freeModeEllipse.length; ++i){
-            freeModeEllipse[i].draw();
+        for(var i = 0; i < freeModeDrawing.length; ++i){
+            freeModeDrawing[i].draw();
         }
     }
-    if (mouseIsPressed && coloringState === 1 && mouseX < 375 && mouseX > 0 && mouseY < 400 && mouseY > 34 && (currentScene === 1 || currentScene === 3 || currentScene === 4 || currentScene === 5 || currentScene === 6)){
+    if (mouseIsPressed && coloringState === 1 && currentScene === 1 && mouseX < 375 && mouseX > 0 && mouseY < 400 && mouseY > 34){
         noStroke();
         fill(currentColor);
         ellipse(mouseX,mouseY,ellipseSize,ellipseSize);
         for(var i = 0; i < 1; i++){
-            freeModeEllipse.push(new Ellipse(mouseX,mouseY,currentColor,ellipseSize));
+            freeModeDrawing.push(new Ellipse(mouseX,mouseY,currentColor,ellipseSize));
             
         }
     }
