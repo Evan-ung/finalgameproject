@@ -1,4 +1,4 @@
-var currentScene = 0; // 0 = splash, 1 = freemode, 2 = coloring book select, 3-... = coloring book options
+var currentScene = 0; // 0 = splash, 1 = freemode, 2 = coloring book select, 3-... = coloring book options // 
 var coloringState = 0; //0 coloring does not work, 1 coloring does work
 var currentColor = color(255,255,255); //current color of the ellipses
 var ellipseSize = 0; //current size of the ellipses
@@ -183,7 +183,7 @@ Button.prototype.isMouseInside = function() {
 //button variables
 var freeDrawButton = new Button({
     x: 133,
-    y: 300,
+    y: 280,
     width:150,
     height:50,
     color1:255,
@@ -194,13 +194,24 @@ var freeDrawButton = new Button({
 
 var coloringMode = new Button({
     x: 133,
-    y: 239,
+    y: 220,
     width:150,
     height:50,
     color1:255,
     color2:0,
     color3:0,
     label: "Coloring Pages"
+});
+
+var helpButton = new Button({
+    x: 170,
+    y: 340,
+    width:81,
+    height:50,
+    color1:255,
+    color2:264,
+    color3:0,
+    label: "  Help"
 });
 
 var nextDrawing = new Button({
@@ -453,11 +464,15 @@ Ellipse.prototype.draw = function() {
 var freeModeDrawing = [];
 
 mouseClicked = function() {
+    
     if (freeDrawButton.isMouseInside() && currentScene === 0) {
         currentScene = 1;
     }
     if (coloringMode.isMouseInside() && currentScene === 0) {
         currentScene = 2;
+    }
+    if (helpButton.isMouseInside() && currentScene === 0) {
+        currentScene = 7;    
     }
     if(blueButton.isMouseInside() && (currentScene === 1 || currentScene === 3 || currentScene === 4 || currentScene === 5 || currentScene === 6) && coloringState === 1){
         currentColor = color(0,0,255);
@@ -549,6 +564,7 @@ var allColoringButtons = function (){
 var splashScreen = function(){
     background(107, 233, 255);
     //Grass
+    var Grass = function() {
         fill(0, 224, 116);
         noStroke();
         ellipse(110, 345, 305, 217);
@@ -559,8 +575,10 @@ var splashScreen = function(){
         ellipse(55, 430, 258, 349);
         ellipse(208, 540, 513, 337);
         fill(255, 213, 0);
+    };
         
     //Sun
+    var Sun = function (){
         stroke(255, 162, 0);
         strokeWeight(3);
         ellipse(398, -1, 200, 200);
@@ -569,6 +587,7 @@ var splashScreen = function(){
         line(283, 21, 223, 43);
         line(312, 65, 260, 117);
         line(362, 108, 350, 151);
+    };
     //Butterfly
     var Butterfly = function(x, y, size) {
         noStroke();
@@ -588,7 +607,13 @@ var splashScreen = function(){
             ellipse(x+(size/100*47), y+(size/100*91), 4, 5);
     };
     Butterfly(125, 99, 80);
+    Butterfly(50, 214, 53);
+    Butterfly(293, 166, 53);
+    
+    
+    
     //Title border
+    var Title = function() {
         fill(255, 255, 255);
         noStroke();
         quad(25, 45, 50, 80, 355, 80, 374, 45); 
@@ -597,13 +622,20 @@ var splashScreen = function(){
         fill(0, 0, 0);
         textSize(46);
         text("Coloring Book", 60, 53);
-        drawBitmojiDamien(367, 257, 81);
-        drawBitmojiEvan(60, 346, 48);
-    //button
+    };
+    //Calling functions
+    Grass();
+    Sun();
+    Title();
+    drawBitmojiDamien(367, 257, 81);
+    drawBitmojiEvan(60, 346, 48);
+
+    //calling buttons
     strokeWeight(1);
     stroke(0,0,0);
     freeDrawButton.draw();
     coloringMode.draw();
+    helpButton.draw();
 };
 
 var freeModeScreen = function(){
@@ -612,6 +644,10 @@ var freeModeScreen = function(){
     allColoringButtons();
     fill(255,255,255);
     rect(0,30,375,369);
+};
+
+var helpScreen = function(){
+  background(255, 0, 255);
 };
 
 var coloringBookSelect = function(){
@@ -628,6 +664,10 @@ draw = function() {
     //draws the initial splash screen/home screen
     if(currentScene === 0){
         splashScreen();
+        coloringState = 0;
+    }
+    if(currentScene === 7){
+        helpScreen();
         coloringState = 0;
     }
     //draws the coloring book select screen
