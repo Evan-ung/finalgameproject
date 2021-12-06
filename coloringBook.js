@@ -527,7 +527,7 @@ mouseClicked = function() {
         coloringState = 0;
         freeModeDrawing.splice(0,freeModeDrawing.length);
     }
-    if (homeButton.isMouseInside() && (currentScene === 1 || currentScene === 3 || currentScene === 4 || currentScene === 5 || currentScene === 6) && coloringState === 1){
+    if (homeButton.isMouseInside() && (currentScene === 1 || currentScene ===2 || currentScene === 3 || currentScene === 4 || currentScene === 5 || currentScene === 6) && coloringState === 1){
         ellipseSize = 0;
         currentScene = 0;
     }
@@ -647,15 +647,41 @@ var freeModeScreen = function(){
 };
 
 var helpScreen = function(){
-  background(255, 0, 255);
+      background(16, 53, 163);
+        //About Me
+      fill(255, 255, 255);
+       rect(20, 20, 362, 168);
+      fill(0, 0, 0);
+      textSize(30);
+      text("About our app", 103, 21);
+      textSize(18);
+      text("       This is a drawing app created by \n                  Evan and Damien. \nIt features a free draw and a coloring mode. \n The program will also save your progress!! \n            Start drawing by selecting a \n                  brush size and color.", 29, 55);
+     
+      //Free Draw Mode
+      fill(255, 255, 255);
+      rect(20, 198, 168, 173);
+      fill(0, 0, 0);
+      textSize(25);
+      text("FreeDraw", 54, 200);
+      textSize(15);
+      text("         In this mode \n you can draw whatever \n    your heart desires!\n      There are many \n   colors to select from.\n You also have 3 brush\n   sizes to choose from", 24, 237);
+      //Coloring mode
+        fill(255, 255, 255);
+        rect(207, 197, 168, 173);
+        fill(0, 0, 0);
+        textSize(25);
+        text("Color Mode", 228, 200);
+        textSize(15);
+        text("         In this mode \n     you can choose\n from the various images \n    we have provided.\n Your colorings will also \n be saved if you choose \n to color another picture.     ", 209, 237);
 };
 
 var coloringBookSelect = function(){
     background(255, 255, 255);
     textSize(21);
-    text("Select what you would like to draw! ", 43, 16);
+    text("Select what you would like to draw! ", 43, 36);
     nextDrawing.draw();
     confirmDrawingButton.draw();
+    homeButton.draw();
     
 };
 
